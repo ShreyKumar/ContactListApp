@@ -4,6 +4,9 @@ body {
     background-color: black;
     font-size: 24px;
 }
+td {
+    height: 30%;   
+}
 h1#title {
     margin-left: 35%;
     margin-top: 10%;
@@ -56,6 +59,14 @@ button.edit {
     width: 80%;
 }
 div#signup {
+    margin-top: 10%;
+    margin-left: 3%;
+    width: 50%;
+}
+div#signin {
+    margin-top: -29.8%;
+    margin-right: 5%;
     margin-left: 50%;
-    margin-top: 20%;
+    position: absolute;
+    width: 45%;
 }

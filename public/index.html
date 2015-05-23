@@ -29,29 +29,46 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td><h3>Username</h3></td>
-                        <td><input class="form-control text-box" ng-model="email" /></td>
+                        <td width="50%" style="margin-top: -2%;"><h3>Username</h3></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup_username" /></td>
                     </tr>
                     <tr>
                         <td><h3>Password</h3></td>
-                        <td><input class="form-control text-box" ng-model="password" type="password" /></td>
+                        <td><input class="form-control text-box" ng-model="signup_password" type="password" /></td>
                     </tr>
                     <tr>
                         <td><h3>Confirm Password</h3></td>
-                        <td><input class="form-control text-box" ng-model="confirmpwd" type="password" /></td>
+                        <td><input class="form-control text-box" ng-model="signup_confirmpwd" type="password" /></td>
                     </tr>
                     <tr>
-                        <td><div id="x"></div> + <div id="y"></div> = </td>
-                        <td></td>
+                        <td>5   +   2   =   </td>
+                        <td>
+                            <input class="form-control text-box" ng-model="ans" ng-click="msg=true"/>
+                            <div ng-show="msg">Just so we know that you aren't a robot</div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+            <button class="go-btn">Sign up</button>
+            <div id="signin">
+                <h1>S I G N  IN</h1>
+                <table class="table">
+                    <tr>
+                        <td width="50%">Username</td>
+                        <td><input class="form-control text-box" ng-model="signin_username" /></td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Password</td>
+                        <td><input class="form-control text-box" ng-model="signin_password" /></td>
+                    </tr>
+                </table>
+                <button class="go-btn">Sign in</button>
+                <button class="go-btn">Sign in with Facebook</button>
+                <button class="go-btn">Sign in with Twitter</button>
+                <button class="go-btn">Sign in with Google+</button>
+            </div>
         </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
     <script src="controllers/controller.js"></script>
-    <script type="text/javascript">
-    //random number generater
-    
-    </script>
     </body>
  </html>
