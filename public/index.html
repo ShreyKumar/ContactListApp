@@ -15,11 +15,17 @@
         <title>Identity</title>
     </head>
     <body>
-        <h1 id="title" class="container">I D E N T I T Y</h1>
+        <div ng-hide="showme">
+        <h1 id="title">I D E N T I T Y</h1>
         <div id="details" class="container">
             <h3>What is Identity?</h3>
             <p>A fast and easy solution to store and keep track of your connections. Have you ever been on the phone attempting to write down someone's contact details but theres no pen lying around? Identity provides you with a digital notebook to write all of this down. Its super simple and can be used at any time.</p>
-            <a href="main.html"><button class="go-btn" href="main.html">Got it, lets go!</button></a>
+            <button class="go-btn" href="main.html" ng-click="showme=true">Sign up</button>
+            
+            </div>
+        </div>
+        <div ng-show="showme">
+            Hello world!
         </div>
     </body>
  </html>
