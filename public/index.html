@@ -1,5 +1,5 @@
  <!DOCTYPE html>
- <html>
+ <html ng-app="myApp">
     <head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
@@ -24,8 +24,34 @@
             
             </div>
         </div>
-        <div ng-show="showme">
-            Hello world!
+        <div ng-show="showme" id="signup" ng-controller="AppCtrl">
+            <h1>S I G N    U P</h1>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><h3>Username</h3></td>
+                        <td><input class="form-control text-box" ng-model="email" /></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Password</h3></td>
+                        <td><input class="form-control text-box" ng-model="password" type="password" /></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Confirm Password</h3></td>
+                        <td><input class="form-control text-box" ng-model="confirmpwd" type="password" /></td>
+                    </tr>
+                    <tr>
+                        <td><div id="x"></div> + <div id="y"></div> = </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
+    <script src="controllers/controller.js"></script>
+    <script type="text/javascript">
+    //random number generater
+    
+    </script>
     </body>
  </html>

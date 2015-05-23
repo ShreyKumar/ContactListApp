@@ -55,3 +55,7 @@ button.edit {
     border-color: black;
     width: 80%;
 }
+div#signup {
+    margin-left: 50%;
+    margin-top: 20%;
+}
