@@ -47,6 +47,12 @@ $scope.edit = function(id) {
         $scope.contact = "";
     };
     
-
+    $scope.signup_btn = function(){
+        alert('hi');
+    };
+    
+    $scope.hi = function(){
+        alert('hello');   
+    };
     
 }]);

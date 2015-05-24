@@ -3,21 +3,44 @@ var app = express();
 var mongojs = require('mongojs');
 var db = mongojs('contactlist', ['contactlist']);
 var bodyParser = require('body-parser');
-var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;
+//var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;
 
 /******************** FACEBOOK OAUTH ***********************/
+/*
 passport.use(new FacebookStrategy({
     clientID: "776709159110384",
     clientSecret: "007b3e789ba0bb10580b36bbb92ac4eb",
-    callbackURL: "main.html"
+    callbackURL: "/auth/facebook/callback"
 }, function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate(function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
+    // Set the provider data and include tokens
+    var providerData = profile._json;
+    providerData.accessToken = accessToken;
+    providerData.refreshToken = refreshToken;
+
+    // Create the user OAuth profile
+    var providerUserProfile = {
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        displayName: profile.displayName,
+        email: profile.emails[0].value,
+        username: profile.username,
+        provider: 'facebook',
+        providerIdentifierField: 'id',
+        providerData: providerData
+    };
+
+    // Save the user OAuth profile
+    users.saveOAuthUserProfile(req, providerUserProfile, done);
   }
 ));
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { successRedirect: '/main.html',
+                                      failureRedirect: '/index.html' }));
+*/
 /***************END FACEBOOK OAUTH ******************/
+/* COMING SOON IN NEXT VERSION*/
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
