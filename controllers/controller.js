@@ -46,6 +46,7 @@ $scope.edit = function(id) {
     $scope.deselect = function(){
         $scope.contact = "";
     };
+    
 
     
 }]);

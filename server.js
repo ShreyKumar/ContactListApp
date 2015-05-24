@@ -3,6 +3,21 @@ var app = express();
 var mongojs = require('mongojs');
 var db = mongojs('contactlist', ['contactlist']);
 var bodyParser = require('body-parser');
+var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;
+
+/******************** FACEBOOK OAUTH ***********************/
+passport.use(new FacebookStrategy({
+    clientID: "776709159110384",
+    clientSecret: "007b3e789ba0bb10580b36bbb92ac4eb",
+    callbackURL: "main.html"
+}, function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate(function(err, user) {
+      if (err) { return done(err); }
+      done(null, user);
+    });
+  }
+));
+/***************END FACEBOOK OAUTH ******************/
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());

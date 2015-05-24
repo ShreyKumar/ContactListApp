@@ -63,10 +63,17 @@ div#signup {
     margin-left: 3%;
     width: 50%;
 }
-div#signin {
-    margin-top: -29.8%;
-    margin-right: 5%;
+/* Sign in fix */
+div.unfixed {
+    margin-top: -30.65%;
     margin-left: 50%;
+}
+div.fixed {
+    margin-top: -33.1%;
+    margin-left: 49.9%;
+}
+div#signin {
+    margin-right: 5%;
     position: absolute;
     width: 45%;
 }

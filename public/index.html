@@ -34,23 +34,23 @@
                     </tr>
                     <tr>
                         <td><h3>Password</h3></td>
-                        <td><input class="form-control text-box" ng-model="signup_password" type="password" /></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup_password" type="password" /></td>
                     </tr>
                     <tr>
                         <td><h3>Confirm Password</h3></td>
-                        <td><input class="form-control text-box" ng-model="signup_confirmpwd" type="password" /></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup_confirmpwd" type="password" /></td>
                     </tr>
                     <tr>
                         <td>5   +   2   =   </td>
-                        <td>
-                            <input class="form-control text-box" ng-model="ans" ng-click="msg=true"/>
+                        <td style="padding-top: 3%">
+                            <input class="form-control text-box" ng-model="ans" ng-click="msg=true" onClick="fix()" />
                             <div ng-show="msg">Just so we know that you aren't a robot</div>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <button class="go-btn">Sign up</button>
-            <div id="signin">
+            <div id="signin" class="unfixed">
                 <h1>S I G N  IN</h1>
                 <table class="table">
                     <tr>
@@ -68,6 +68,11 @@
                 <button class="go-btn">Sign in with Google+</button>
             </div>
         </div>
+        <script type="text/javascript">
+            function fix(){
+                document.getElementById("signin").className = "fixed";
+            }
+        </script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
     <script src="controllers/controller.js"></script>
     </body>
