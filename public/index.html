@@ -30,15 +30,15 @@
                 <tbody>
                     <tr>
                         <td width="50%" style="margin-top: -2%;"><h3>Username</h3></td>
-                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup_username" /></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup.username" /></td>
                     </tr>
                     <tr>
                         <td><h3>Password</h3></td>
-                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup_password" type="password" /></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup.password" type="password" /></td>
                     </tr>
                     <tr>
                         <td><h3>Confirm Password</h3></td>
-                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup_confirmpwd" type="password" /></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup.confirmpwd" type="password" /></td>
                     </tr>
                     <tr>
                         <td>5   +   2   =   </td>
@@ -49,17 +49,17 @@
                     </tr>
                 </tbody>
             </table>
-            <button class="go-btn" ng-click="signup()">Sign up</button>{{ signup_msg }}
+            <button class="go-btn" ng-click="go_signup()">Sign up</button>{{ signup_msg }}
             <div id="signin" class="unfixed">
                 <h1>S I G N  IN</h1>
                 <table class="table">
                     <tr>
                         <td width="50%">Username</td>
-                        <td><input class="form-control text-box" ng-model="signin_username" /></td>
+                        <td><input class="form-control text-box" ng-model="signin.username" /></td>
                     </tr>
                     <tr>
                         <td width="50%">Password</td>
-                        <td><input class="form-control text-box" ng-model="signin_password" /></td>
+                        <td><input class="form-control text-box" ng-model="signin.password" /></td>
                     </tr>
                 </table>
                 <button class="go-btn" ng-click="signup()">Sign in</button>

@@ -4,6 +4,9 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
     
     console.log("Hello world from controller");
     
+    $http.get().success(function(response){
+        
+    });
 
     var refresh = function(){
         $http.get('/identity').success(function(response){
@@ -47,19 +50,24 @@ $scope.edit = function(id) {
         $scope.contact = "";
     };
     
+    //display
+    $http.get('/identity/' + $scope.user).success(function(response){
+        
+    });
+    
     $scope.validate = function(){
         try {
-            var user_len = $scope.signup_username.length;
+            var user_len = $scope.signup.username.length;
         } catch(TypeError){
             var user_len = 0;
         }
         try {
-            var pass_len = $scope.signup_password.length;
+            var pass_len = $scope.signup.password.length;
         } catch(TypeError){
             var pass_len = 0;   
         }
         try {
-            var confirm_len = $scope.signup_confirmpwd.length;   
+            var confirm_len = $scope.signup.confirmpwd.length;   
         } catch(TypeError){
             var confirm_len = 0;   
         }
@@ -76,22 +84,37 @@ $scope.edit = function(id) {
             ready = false;
         };
         
-        if($scope.signup_password != $scope.signup_confirmpwd) {
+        if($scope.signup.password != $scope.signup.confirmpwd) {
             $scope.signup_msg = "Passwords do not match";
             ready = false;
         };
         
         if($scope.ans != "7"){
-            $scope.signup_msg = "Do you even math? The security question's answer is incorrect";
+            $scope.signup_msg = "The security question's answer is incorrect";
             ready = false;
         };
         
+        if(ready){
+            $scope.user = $scope.signup.username;   
+        }
         return ready;
     };
     
-    $scope.signup = function(){
+    $scope.go_signup = function(){
         if($scope.validate()){
-            
+            $http.post('/identity', $scope.signup).success(function(response){
+                window.location.href = "main.html";
+            });
+        }
+    }
+    
+    $scope.signin = function(){
+        if($scope.signin.username.length == 0 || $scope.signin.username.length == 0){
+            $scope.signin_msg = "Some of your fields are empty. Please try again.";   
+        } else {
+            $http.get('/identity/' + $scope.signin.username).success(function(response){
+                 
+            });
         }
     }
 

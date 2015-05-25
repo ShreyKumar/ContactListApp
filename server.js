@@ -69,6 +69,15 @@ app.delete("/identity/:id", function(req, res){
     });
 });
 
+app.get('/identity/:username', function(req, res){
+    var user = req.params.username;
+    console.log(username);
+    db.identity.findOne({username: user}, function(err, doc){
+        res.json(doc);  
+    });
+    
+});
+
 app.get('/identity/:id', function(req, res){
     var id = req.params.id;
     console.log(id);
