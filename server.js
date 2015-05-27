@@ -71,8 +71,9 @@ app.delete("/identity/:id", function(req, res){
 
 app.get('/identity/:username', function(req, res){
     var user = req.params.username;
-    console.log(username);
+    console.log('Username' + req.params.username);
     db.identity.findOne({username: user}, function(err, doc){
+        console.log(doc);
         res.json(doc);  
     });
     

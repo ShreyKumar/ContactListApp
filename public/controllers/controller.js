@@ -78,33 +78,61 @@ $scope.edit = function(id) {
         }
         
         var ready = true;
+        console.log(ready);
         
+        //validate empty fields
         if(user_len == 0 || pass_len == 0 || confirm_len == 0 || ans_len == 0){
             $scope.signup_msg = "Some of your fields are empty. Please try again.";
             ready = false;
+        console.log(ready);
+        } else if(user_len <= 5 || !/[0-9a-zA-Z]*$/.test($scope.signup.username)){
+            $scope.signup_msg = "Your username must be more than 5 characters and must contain only integers, uppercase or lowercase characters";
+            ready = false;
+        } else if(pass_len <= 5){
+            $scope.signup_msg = "Your password must be more than 5 characters";
+            ready = false;
         };
         
+        //validate passwords
         if($scope.signup.password != $scope.signup.confirmpwd) {
             $scope.signup_msg = "Passwords do not match";
             ready = false;
+        console.log(ready);
         };
         
+        //validate confirm password
         if($scope.ans != "7"){
             $scope.signup_msg = "The security question's answer is incorrect";
             ready = false;
+            console.log(ready);
         };
         
+        console.log(ready);
         if(ready){
-            $scope.user = $scope.signup.username;   
+            window.user = $scope.signup.username;   
         }
         return ready;
     };
     
+    $scope.validate_username = function(){
+        $http.get('/identity/' + $scope.signup.username).success(function(response){
+            if($scope.signup.username == response.username){
+                return false;
+            } else {
+                return true;   
+            }
+        });   
+    }
+    
     $scope.go_signup = function(){
-        if($scope.validate()){
+        if($scope.validate() && $scope.validate_username()){
             $http.post('/identity', $scope.signup).success(function(response){
-                window.location.href = "main.html";
+                console.log('validation complete');
+                //window.location.href = "main.html";
             });
+            
+        } else if(!$scope.validate_username()){
+            $scope.signin_msg = "Username taken. Please pick another one";
         }
     }
     
