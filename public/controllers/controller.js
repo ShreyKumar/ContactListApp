@@ -55,6 +55,7 @@ $scope.edit = function(id) {
         
     });
     
+    var ready = true;
     $scope.validate = function(){
         try {
             var user_len = $scope.signup.username.length;
@@ -77,7 +78,6 @@ $scope.edit = function(id) {
             var ans_len = 0;
         }
         
-        var ready = true;
         console.log(ready);
         
         //validate empty fields
@@ -116,24 +116,29 @@ $scope.edit = function(id) {
     
     $scope.validate_username = function(){
         $http.get('/identity/' + $scope.signup.username).success(function(response){
-            if($scope.signup.username == response.username){
-                return false;
-            } else {
-                return true;   
+            try {
+                if($scope.signup.username == response.username){
+                    $scope.signin_msg = "Username taken. Please pick another one";
+                    ready = false;
+                }
+            } catch(TypeError){
+                ready = true;
             }
         });   
     }
     
     $scope.go_signup = function(){
-        if($scope.validate() && $scope.validate_username()){
+        console.log($scope.validate_username());
+        //if($scope.validate() && $scope.validate_username()){
+        if(ready){
             $http.post('/identity', $scope.signup).success(function(response){
+                window.user = $scope.signup.username;
                 console.log('validation complete');
-                //window.location.href = "main.html";
+                window.location.href = "main.html";
             });
             
-        } else if(!$scope.validate_username()){
-            $scope.signin_msg = "Username taken. Please pick another one";
-        }
+        }   
+        
     }
     
     $scope.signin = function(){
@@ -141,8 +146,17 @@ $scope.edit = function(id) {
             $scope.signin_msg = "Some of your fields are empty. Please try again.";   
         } else {
             $http.get('/identity/' + $scope.signin.username).success(function(response){
-                 
+                 console.log("Authentication complete");
+                window.user = response.username;
+                window.location.href = "main.html";
             });
+        }
+    }
+    
+    $scope.load_user = function(){
+        if(window.location.pathname == '/main.html'){
+            console.log("Hello world!");
+            console.log(window.user);
         }
     }
 
