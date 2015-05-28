@@ -50,113 +50,56 @@ $scope.edit = function(id) {
         $scope.contact = "";
     };
     
-    //display
-    $http.get('/identity/' + $scope.user).success(function(response){
-        
-    });
-    
-    var ready = true;
-    $scope.validate = function(){
-        try {
-            var user_len = $scope.signup.username.length;
-        } catch(TypeError){
-            var user_len = 0;
-        }
-        try {
-            var pass_len = $scope.signup.password.length;
-        } catch(TypeError){
-            var pass_len = 0;   
-        }
-        try {
-            var confirm_len = $scope.signup.confirmpwd.length;   
-        } catch(TypeError){
-            var confirm_len = 0;   
-        }
-        try {
-            var ans_len = $scope.ans.length;   
-        } catch(TypeError){
-            var ans_len = 0;
-        }
-        
-        console.log(ready);
-        
-        //validate empty fields
-        if(user_len == 0 || pass_len == 0 || confirm_len == 0 || ans_len == 0){
-            $scope.signup_msg = "Some of your fields are empty. Please try again.";
-            ready = false;
-        console.log(ready);
-        } else if(user_len <= 5 || !/[0-9a-zA-Z]*$/.test($scope.signup.username)){
-            $scope.signup_msg = "Your username must be more than 5 characters and must contain only integers, uppercase or lowercase characters";
-            ready = false;
-        } else if(pass_len <= 5){
-            $scope.signup_msg = "Your password must be more than 5 characters";
-            ready = false;
-        };
-        
-        //validate passwords
-        if($scope.signup.password != $scope.signup.confirmpwd) {
-            $scope.signup_msg = "Passwords do not match";
-            ready = false;
-        console.log(ready);
-        };
-        
-        //validate confirm password
-        if($scope.ans != "7"){
-            $scope.signup_msg = "The security question's answer is incorrect";
-            ready = false;
-            console.log(ready);
-        };
-        
-        console.log(ready);
-        if(ready){
-            window.user = $scope.signup.username;   
-        }
-        return ready;
-    };
-    
-    $scope.validate_username = function(){
-        $http.get('/identity/' + $scope.signup.username).success(function(response){
-            try {
-                if($scope.signup.username == response.username){
-                    $scope.signin_msg = "Username taken. Please pick another one";
-                    ready = false;
-                }
-            } catch(TypeError){
-                ready = true;
-            }
-        });   
+    $scope.reset_signup = function(){
+        $scope.signup = undefined;
+        $scope.signup_confirmpwd = undefined;
+        $scope.ans = undefined;
     }
     
     $scope.go_signup = function(){
-        console.log($scope.validate_username());
-        //if($scope.validate() && $scope.validate_username()){
-        if(ready){
-            $http.post('/identity', $scope.signup).success(function(response){
-                $rootScope.user = $scope.signup.username;
-                console.log('validation complete');
-                window.location.href = "main.html";
-            });
-            
-        }   
-        
-    }
-    
-    $scope.signin = function(){
-        if(typeof($scope.signin.username) == "undefined" || typeof($scope.signin.password) == "undefined"){
-            $scope.signin.username = "";
-            $scope.signin.password = "";
+        //check for completed fields
+        var isEmpty = $scope.signup === undefined || $scope.signup.username === undefined || $scope.signup.password === undefined || $scope.signup_confirmpwd === undefined || $scope.ans === undefined;
+        if(isEmpty){
+            $scope.signup_msg = "Please fill in all fields";
+            $scope.reset_signup();
+        } else if($scope.signup.username.length < 5 || $scope.signup.password.length < 5){
+            $scope.signup_msg = "Username and password both have to be 5 characters or more";
+            $scope.reset_signup();
+        } else if(!/^[a-zA-Z0-9äöüÄÖÜ]*$/.test($scope.signup.username)){
+            $scope.signup_msg = "Username must only contain uppercase, lowercase or integers";
+            $scope.reset_signup();
+        } else if($scope.signup.password != $scope.signup_confirmpwd){
+            $scope.signup_msg = "Passwords do not match. Please try again.";
+            $scope.reset_signup();
+        } else if($scope.ans != '7'){
+            $scope.signup_msg = "5 + 2 isn't " + $scope.ans;
+            $scope.reset_signup();
+        } else {
+            $http.get('/identity/' + $scope.signup.username).success(function(response){
+                if($scope.signup.username == response.username){
+                    $scope.signup_msg = "Username taken. Please pick another";
+                    $scope.reset_signup();
+                } else {
+                    console.log("Authentication complete");
+                    localStorage.setItem("user", response.username);
+                    window.location.href = "main.html";
+                }
+            });   
         }
-        
-        if($scope.signin.username == "" || $scope.signin.password == ""){
+    }
+
+    $scope.go_signin = function(){
+        if($scope.signin === undefined || $scope.signin.username === undefined || $scope.signin.password === undefined){
             $scope.signin_msg = "Some of your fields are empty. Please try again.";
-            $scope.signin.username = "";
-            $scope.signin.password = "";
+            $scope.signin = undefined;
+            console.log($scope.signin);
         } else {
             $http.get('/identity/' + $scope.signin.username).success(function(response){
+                console.log(response === null);
                 if(response === null){
                     $scope.signin_msg = "Username or Password not found.";
-                    $scope.signin.username = "";
-                    $scope.signin.password = "";
+                    $scope.signin = undefined;
+                    console.log($scope.signin);
                 } else {
                     console.log("Authentication complete");
                     localStorage.setItem("user", response.username);
