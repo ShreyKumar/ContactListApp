@@ -63,6 +63,7 @@ app.factory('myService', function(){
 });
 */
 
+/*
 app.get('/identity', function(req, res){
     console.log("I recieved a GET request");
 
@@ -71,12 +72,16 @@ app.get('/identity', function(req, res){
         res.json(docs);
     });
 });
+*/
     
 app.post('/identity', function(req, res){
     console.log(req.body);
+    db.identity.findAndModify({query: {username: $scope.user}, update:{$set: {contacts: req.body.contacts}} });
+    /*
     db.identity.insert(req.body, function(err, doc){
         res.json(doc);
     });
+    */
 });
 
 app.delete("/identity/:id", function(req, res){

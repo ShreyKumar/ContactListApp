@@ -3,19 +3,25 @@ var myApp = angular.module('myApp', []);
 myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http){
     
     console.log("Hello world from controller");
-    
-    $http.get().success(function(response){
-        
-    });
 
+    
+    $scope.load_user = function(){
+        if(window.location.pathname == '/main.html'){
+            console.log("Hello world!");
+            $scope.user = localStorage.getItem("user");
+        }
+    }
+    
     var refresh = function(){
-        $http.get('/identity').success(function(response){
-            console.log("I got data I requested");
-            $scope.contactlist = response;
-            $scope.contact = "";
+        console.log($scope.user);
+        //$http.get('/identity/' + $scope.user).success(function(response){
+        //TEMPORARY USE ONLY 
+        $http.get('/identity/admin').success(function(response){
+            console.log(response.contacts);
         });
     }
-refresh();
+    $scope.load_user();
+    refresh();
     
     $scope.addContact = function() {
         console.log($scope.contact);
@@ -109,12 +115,6 @@ $scope.edit = function(id) {
         }
     }
     
-    $scope.load_user = function(){
-        if(window.location.pathname == '/main.html'){
-            console.log("Hello world!");
-            $scope.user = localStorage.getItem("user");
-        }
-    }
 
     
 }]);
