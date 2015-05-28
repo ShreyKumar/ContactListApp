@@ -59,10 +59,11 @@
                     </tr>
                     <tr>
                         <td width="50%">Password</td>
-                        <td><input class="form-control text-box" ng-model="signin.password" /></td>
+                        <td><input class="form-control text-box" ng-model="signin.password" type="password"/></td>
                     </tr>
                 </table>
                 <button class="go-btn" ng-click="signin()">Sign in</button>
+                {{ signin_msg }} 
                 <!--
                 <a href="/auth/facebook"><button class="go-btn">Sign in with Facebook</button></a>
                 <button class="go-btn">Sign in with Twitter</button>

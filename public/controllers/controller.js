@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp', []);
 
-myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http){
+myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $rootScope, $http){
     
     console.log("Hello world from controller");
     
@@ -132,7 +132,7 @@ $scope.edit = function(id) {
         //if($scope.validate() && $scope.validate_username()){
         if(ready){
             $http.post('/identity', $scope.signup).success(function(response){
-                window.user = $scope.signup.username;
+                $rootScope.user = $scope.signup.username;
                 console.log('validation complete');
                 window.location.href = "main.html";
             });
@@ -142,13 +142,26 @@ $scope.edit = function(id) {
     }
     
     $scope.signin = function(){
-        if($scope.signin.username.length == 0 || $scope.signin.username.length == 0){
-            $scope.signin_msg = "Some of your fields are empty. Please try again.";   
+        if(typeof($scope.signin.username) == "undefined" || typeof($scope.signin.password) == "undefined"){
+            $scope.signin.username = "";
+            $scope.signin.password = "";
+        }
+        
+        if($scope.signin.username == "" || $scope.signin.password == ""){
+            $scope.signin_msg = "Some of your fields are empty. Please try again.";
+            $scope.signin.username = "";
+            $scope.signin.password = "";
         } else {
             $http.get('/identity/' + $scope.signin.username).success(function(response){
-                 console.log("Authentication complete");
-                window.user = response.username;
-                window.location.href = "main.html";
+                if(response === null){
+                    $scope.signin_msg = "Username or Password not found.";
+                    $scope.signin.username = "";
+                    $scope.signin.password = "";
+                } else {
+                    console.log("Authentication complete");
+                    localStorage.setItem("user", response.username);
+                    window.location.href = "main.html";
+                }
             });
         }
     }
@@ -156,7 +169,7 @@ $scope.edit = function(id) {
     $scope.load_user = function(){
         if(window.location.pathname == '/main.html'){
             console.log("Hello world!");
-            console.log(window.user);
+            $scope.user = localStorage.getItem("user");
         }
     }
 

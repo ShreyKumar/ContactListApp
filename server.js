@@ -45,6 +45,24 @@ app.get('/auth/facebook/callback',
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 
+/*
+//create service
+app.factory('myService', function(){
+    var savedData = {}
+    function set(data){
+        savedData = data;   
+    }
+    function get(){
+        return savedData    
+    }
+    return {
+        set: set,
+        get: get
+    }
+    
+});
+*/
+
 app.get('/identity', function(req, res){
     console.log("I recieved a GET request");
 
