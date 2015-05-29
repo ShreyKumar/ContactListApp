@@ -25,9 +25,12 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
     
     $scope.addContact = function() {
         console.log($scope.contact);
-        $http.post('/identity', $scope.contact).success(function(response){
+        console.log();
+        $http.post('/identity/' + $scope.user, $scope.contact).success(function(response){
           console.log(response);  
         refresh();
+        }).error(function(err){
+            console.log(err); 
         });
     };
     

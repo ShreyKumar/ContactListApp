@@ -74,14 +74,14 @@ app.get('/identity', function(req, res){
 });
 */
     
-app.post('/identity', function(req, res){
-    console.log(req.body);
-    db.identity.findAndModify({query: {username: $scope.user}, update:{$set: {contacts: req.body.contacts}} });
-    /*
-    db.identity.insert(req.body, function(err, doc){
-        res.json(doc);
+app.post('/identity/:username', function(req, res){
+    var username = req.params.username;
+    db.identity.update({
+        query: {username: username}, 
+        update: {$push: {contacts: req.body}}
     });
-    */
+    console.log(req.body);
+    
 });
 
 app.delete("/identity/:id", function(req, res){
