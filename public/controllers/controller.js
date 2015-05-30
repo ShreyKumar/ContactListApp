@@ -14,10 +14,8 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
     
     var refresh = function(){
         console.log($scope.user);
-        //$http.get('/identity/' + $scope.user).success(function(response){
-        //TEMPORARY USE ONLY 
-        $http.get('/identity/admin').success(function(response){
-            console.log(response.contacts);
+        $http.get('/identity/' + $scope.user).success(function(response){
+            $scope.contactlist = response.contacts;
         });
     }
     $scope.load_user();
@@ -25,12 +23,9 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
     
     $scope.addContact = function() {
         console.log($scope.contact);
-        console.log();
         $http.post('/identity/' + $scope.user, $scope.contact).success(function(response){
-          console.log(response);  
-        refresh();
-        }).error(function(err){
-            console.log(err); 
+           console.log(response);
+            refresh();
         });
     };
     

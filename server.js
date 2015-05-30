@@ -76,11 +76,14 @@ app.get('/identity', function(req, res){
     
 app.post('/identity/:username', function(req, res){
     var username = req.params.username;
-    db.identity.update({
+    db.identity.findAndModify({
         query: {username: username}, 
         update: {$push: {contacts: req.body}}
+    }, function(err, doc){
+        res.json(doc);
     });
-    console.log(req.body);
+    console.log("Username" + req.params.username);
+    console.log("Body to post" + req.body);
     
 });
 
