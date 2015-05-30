@@ -46,15 +46,27 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
         $scope.contact = {name: "", email: "", number: ""};
         
         $scope.contact.name = name;
+        localStorage.setItem("name", name);
         $scope.contact.email = email;
+        localStorage.setItem("email", email);
         $scope.contact.number = number;
+        localStorage.setItem("number", number);
     }; 
     
     $scope.update = function(){
-        console.log($scope.contact._id);
-        $http.put('/identity/' + $scope.contact._id, $scope.contact).success(function(response){
-            refresh();
-        });
+        var eval = /^[A-Z]'?[-. a-zA-Z]+$/.test($scope.contact.name) && /^[0-9]+$/.test($scope.contact.number) && /[a-zA-Z0-9.]+@([a-z]{2,}\.)*[a-z]{2,}/.test($scope.contact.email);
+        if(eval){
+            $scope.send = {new: $scope.contact, list: $scope.contactlist};
+            console.log('validated');
+            console.log($scope.contactlist);
+            $http.put('/identity/' + $scope.user + '/' + localStorage.getItem("name") + '/' + localStorage.getItem("email") + '/' + localStorage.getItem("number"), [$scope.contactlist, $scope.contact]).success(function(response){
+                console.log(response);
+                refresh();
+                $scope.contact = {name: "", email: "", number: ""};
+            });
+        } else {
+            console.log('failed');   
+        };
     }
     
     $scope.deselect = function(){

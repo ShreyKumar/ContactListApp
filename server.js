@@ -119,12 +119,23 @@ app.get('/identity/:id', function(req, res){
     });
 });
 
-app.put('/identity/:id', function(req, res){
-    var id = req.params.id;
-    console.log(req.body.name);
-    db.identity.findAndModify({query: {_id: mongojs.ObjectId(id)},
-    update: {$set: {name: req.body.name, email: req.body.email, number: req.body.number}},
-    new: true}, function(err, doc){
+app.put('/identity/:username/:name/:email/:number', function(req, res){
+    var contactlist = req.body[0];
+    var new_contact = req.body[1];
+    console.log(req.body[1]);
+    for(var i = 0; i < contactlist.length; i++){
+        if(contactlist[i].name == req.params.name && contactlist[i].email == req.params.email && contactlist[i].number == req.params.number){
+            contactlist[i].name = new_contact.name;
+            contactlist[i].number = new_contact.number;
+            contactlist[i].email = new_contact.email;
+        }
+    }
+    console.log(contactlist);
+    db.identity.findAndModify({
+        query: {username: req.params.username},
+        update: {$set: {contacts: contactlist}}
+    }, function(err, doc){
+        console.log('success');
         res.json(doc);
     });
 });
