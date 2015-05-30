@@ -23,10 +23,15 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
     
     $scope.addContact = function() {
         console.log($scope.contact);
-        $http.post('/identity/' + $scope.user, $scope.contact).success(function(response){
-           console.log(response);
-            refresh();
-        });
+        var eval = /^[A-Z]'?[-. a-zA-Z]+$/.test($scope.contact.name) && /^[0-9]+$/.test($scope.contact.number) && /[a-zA-Z0-9.]+@([a-z]{2,}\.)*[a-z]{2,}/.test($scope.contact.email);
+        
+        if(eval){
+            $http.post('/identity/' + $scope.user, $scope.contact).success(function(response){
+                console.log(response);
+                refresh();
+                $scope.contact = undefined;
+            });
+        }
     };
     
     $scope.remove = function(id){
@@ -36,12 +41,13 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
         });
     }
     
-$scope.edit = function(id) {
-  console.log(id);
-  $http.get('/identity/' + id).success(function(response) {
-    $scope.contact = response;
-  });
-}; 
+    $scope.edit = function(name, email, number) {
+        $scope.contact = {name: "", email: "", number: ""};
+        
+        $scope.contact.name = name;
+        $scope.contact.email = email;
+        $scope.contact.number = number;
+    }; 
     
     $scope.update = function(){
         console.log($scope.contact._id);
@@ -80,12 +86,15 @@ $scope.edit = function(id) {
             $scope.reset_signup();
         } else {
             $http.get('/identity/' + $scope.signup.username).success(function(response){
-                if($scope.signup.username == response.username){
+                if(response !== null && $scope.signup.username == response.username){
                     $scope.signup_msg = "Username taken. Please pick another";
                     $scope.reset_signup();
                 } else {
+                    $http.post('/identity/' + $scope.signup.username + '/' + $scope.signup.password).success(function(response){
+                        console.log('User added');
+                    });
                     console.log("Authentication complete");
-                    localStorage.setItem("user", response.username);
+                    localStorage.setItem("user", $scope.signup.username);
                     window.location.href = "main.html";
                 }
             });   

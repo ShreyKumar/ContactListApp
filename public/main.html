@@ -43,7 +43,7 @@
                     <td>{{contact.email}}</td>
                     <td>{{contact.number}}</td>
                     <td><button class="remove" ng-click="remove(contact._id)">Remove</button></td>
-                    <td><button class="edit" ng-click="edit(contact._id)">Edit</button></td>
+                    <td><button class="edit" ng-click="edit(contact.name, contact.email, contact.number)">Edit</button></td>
                 </tr>
             </tbody>
         </table>

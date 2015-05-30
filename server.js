@@ -44,35 +44,6 @@ app.get('/auth/facebook/callback',
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
-
-/*
-//create service
-app.factory('myService', function(){
-    var savedData = {}
-    function set(data){
-        savedData = data;   
-    }
-    function get(){
-        return savedData    
-    }
-    return {
-        set: set,
-        get: get
-    }
-    
-});
-*/
-
-/*
-app.get('/identity', function(req, res){
-    console.log("I recieved a GET request");
-
-    db.identity.find(function(err, docs){
-        console.log(docs);
-        res.json(docs);
-    });
-});
-*/
     
 app.post('/identity/:username', function(req, res){
     var username = req.params.username;
@@ -85,6 +56,15 @@ app.post('/identity/:username', function(req, res){
     console.log("Username" + req.params.username);
     console.log("Body to post" + req.body);
     
+});
+app.post('/identity/:username/:password', function(req, res){
+    db.identity.insert({
+        username : req.params.username,
+        password : req.params.password,
+        contacts : []
+    }, function(err, res){
+        console.log(res);
+    });
 });
 
 app.delete("/identity/:id", function(req, res){
