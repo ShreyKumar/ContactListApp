@@ -86,7 +86,7 @@ app.post("/identity/:user/:name/:email/:number", function(req, res){
     
     db.identity.findAndModify({
         query: {username: user},
-        update: {contacts: poped}
+        update: {$set: {contacts: poped}}
     }, function(err, doc){
         res.json(doc); 
     });
