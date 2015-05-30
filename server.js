@@ -47,6 +47,7 @@ app.use(bodyParser.json());
     
 app.post('/identity/:username', function(req, res){
     var username = req.params.username;
+    console.log(req);
     db.identity.findAndModify({
         query: {username: username}, 
         update: {$push: {contacts: req.body}}
@@ -65,6 +66,31 @@ app.post('/identity/:username/:password', function(req, res){
     }, function(err, res){
         console.log(res);
     });
+});
+
+app.post("/identity/:user/:name/:email/:number", function(req, res){
+    var user = req.params.user;
+    var name = req.params.name;
+    var email = req.params.email;
+    var number = req.params.number;
+    var contacts = req.body;
+    
+    var poped = []
+    for(var i = 0; i < contacts.length; i++){
+        if(contacts[i].name != name && contacts[i].email != email && contacts[i].number != number){
+            console.log(i);
+            poped.push(contacts[i]);
+        }
+    }
+    console.log(poped);
+    
+    db.identity.findAndModify({
+        query: {username: user},
+        update: {contacts: poped}
+    }, function(err, doc){
+        res.json(doc); 
+    });
+    
 });
 
 app.delete("/identity/:id", function(req, res){

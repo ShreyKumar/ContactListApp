@@ -34,9 +34,10 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
         }
     };
     
-    $scope.remove = function(id){
-        console.log(id);
-        $http.delete("/identity/" + id).success(function(response){
+    $scope.remove = function(name, email, number){
+        $scope.test = {'contacts' : 'hey'};
+        $http.post("/identity/" + $scope.user + "/" + name + '/' + email + '/' + number, $scope.contactlist).success(function(response){
+            console.log(response);
             refresh();
         });
     }
