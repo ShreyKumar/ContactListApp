@@ -62,7 +62,7 @@
                         <td><input class="form-control text-box" ng-model="signin.password" type="password"/></td>
                     </tr>
                 </table>
-                <input type="checkbox" class="form-control remember" ng-model="remember" />Keep me signed in for 2 weeks
+                <input type="checkbox" class="form-control remember" ng-model="remember" id="remember"/>Keep me signed in for 2 weeks
                 <button class="go-btn" ng-click="go_signin()">Sign in</button>
                 {{ signin_msg }} 
                 <!--
@@ -73,6 +73,8 @@
 -->
         </div>
         <script type="text/javascript">
+            //get date
+            console.log(new Date());
             function fix(){
                 document.getElementById("signin").className = "fixed";
             }

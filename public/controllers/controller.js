@@ -115,7 +115,6 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
     }
 
     $scope.go_signin = function(){
-        
         if($scope.signin === undefined || $scope.signin.username === undefined || $scope.signin.password === undefined){
             $scope.signin_msg = "Some of your fields are empty. Please try again.";
             $scope.signin = undefined;
@@ -128,6 +127,14 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
                     $scope.signin = undefined;
                     console.log($scope.signin);
                 } else {
+                //remember me value
+                    if(document.getElementById('remember').checked){
+                        var date = new Date();
+                        var month = date.getMonth() + 1;
+                        var expdate = date.getDate() + '/' + month + '/' + date.getFullYear();
+                        localStorage.setItem("password", $scope.signin.password);
+                        localStorage.setItem("expirydate", expdate);    
+                    }
                     console.log("Authentication complete");
                     localStorage.setItem("user", response.username);
                     window.location.href = "main.html";
