@@ -70,10 +70,24 @@ div.unfixed {
 }
 div.fixed {
     margin-top: -33.1%;
-    margin-left: 49.9%;
 }
 div#signin {
     margin-right: 5%;
     position: absolute;
     width: 45%;
+}
+button.signout {
+    background-color: cornflowerblue;
+    width: 200px;
+    position: absolute;
+    margin-left: 72%;
+    margin-top: -4%;
+    border-color: black;
+    outline: none;
+}
+input.remember {
+    width: 20px;
+    display: inline;
+    margin-top: -7px;
+    margin-right: 5px;
 }

@@ -19,8 +19,8 @@
         <h1 id="title">I D E N T I T Y</h1>
         <div id="details" class="container">
             <h3>What is Identity?</h3>
-            <p>A fast and easy solution to store and keep track of your connections. Have you ever been on the phone attempting to write down someone's contact details but theres no pen lying around? Identity provides you with a digital notebook to write all of this down. Its super simple and can be used at any time.</p>
-            <button class="go-btn" href="main.html" ng-click="showme=true">Sign up</button>
+            <p>A fast and easy solution to store and keep track of your connections. Have you ever been on the phone attempting to write down someone's contact details but theres no pen lying around? Identity provides you with a digital notebook to write all of it down. Sign up and we will keep you logged in for 2 weeks. Its super simple and can be used at any time.</p>
+            <button class="go-btn" href="main.html" ng-click="showme=true">Got it! Lets go</button>
             
             </div>
         </div>
@@ -62,6 +62,7 @@
                         <td><input class="form-control text-box" ng-model="signin.password" type="password"/></td>
                     </tr>
                 </table>
+                <input type="checkbox" class="form-control remember" ng-model="remember" />Keep me signed in for 2 weeks
                 <button class="go-btn" ng-click="go_signin()">Sign in</button>
                 {{ signin_msg }} 
                 <!--

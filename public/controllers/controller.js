@@ -115,6 +115,7 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
     }
 
     $scope.go_signin = function(){
+        
         if($scope.signin === undefined || $scope.signin.username === undefined || $scope.signin.password === undefined){
             $scope.signin_msg = "Some of your fields are empty. Please try again.";
             $scope.signin = undefined;
@@ -133,6 +134,11 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
                 }
             });
         }
+    }
+    
+    $scope.signout = function(){
+        localStorage.setItem("user", "");
+        window.location.href = "index.html";
     }
     
 
