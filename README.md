@@ -1,2 +1,2 @@
-# ContactListApp
-A contact list app I created to learn NodeJS and MongoDB 
+# Identity
+A contact list app called Identity which allows you to sync your contacts anywhere you go
