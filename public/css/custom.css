@@ -91,3 +91,10 @@ input.remember {
     margin-top: -7px;
     margin-right: 5px;
 }
+p.copyright {
+    color: white;
+    text-align: center;
+    margin-top: 33px;
+    font-size: 19px;
+    margin-left: 3px;
+}
