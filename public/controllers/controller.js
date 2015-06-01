@@ -125,7 +125,33 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
             };
         }
     }
-
+    
+    $scope.getExpDate = function(){
+        if(document.getElementById('remember').checked){
+            var date = new Date();
+            var month = date.getMonth();
+            var day = date.getDate();
+            var year = date.getFullYear();
+            if(month % 2 == 0){
+                var limit = 31;
+            } else {
+                var limit = 30;   
+            }
+            day += 14;
+            if(day > limit){
+                day -= limit;
+                month += 1
+                if(month > 12){
+                    year += 1;
+                    month = 0;
+                }
+            }
+                        var expdate = day + '/' + month + '/' + year;
+                        localStorage.setItem("password", $scope.signin.password);
+                        localStorage.setItem("expirydate", expdate);    
+            }
+    }
+    
     $scope.go_signin = function(){
         if($scope.signin === undefined || $scope.signin.username === undefined || $scope.signin.password === undefined){
             $scope.signin_msg = "Some of your fields are empty. Please try again.";
@@ -140,28 +166,7 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
                     console.log($scope.signin);
                 } else {
                     //remember me value
-                    if(document.getElementById('remember').checked){
-                        var date = new Date();
-                        var month = date.getMonth();
-                        var day = date.getDate();
-                        var year = date.getFullYear();
-                        if(month % 2 == 0){
-                            var limit = 31;
-                        } else {
-                            var limit = 30;   
-                        }
-                        var newDay = day + 14;
-                        if(newDay > limit){
-                            newDay -= limit;
-                            if(month + 1 > 12){
-                                year += 1;
-                                month = 0;
-                            }
-                        }
-                        var expdate = date.getDate() + '/' + month + '/' + date.getFullYear();
-                        localStorage.setItem("password", $scope.signin.password);
-                        localStorage.setItem("expirydate", expdate);    
-                    }
+                    $scope.getExpDate();
                     console.log("Authentication complete");
                     localStorage.setItem("user", response.username);
                     window.location.href = "main.html";
