@@ -23,7 +23,8 @@
             <button class="go-btn" href="main.html" ng-click="showme=true">Got it! Lets go</button>
                 <p class="copyright">
                     Found a bug? Report it to <a href="mailto:shreyansh.kumar@hotmail.com">shreyansh.kumar@hotmail.com</a>
-                    <br />Copyright &copy;<a href="http://shreykumar.com">Shreyansh Kumar</a> 2015
+                    <br />Copyright &copy;<a href="http://shreykumar.com">Shreyansh Kumar</a> 2015<br />
+                    Built for you with love <3 
             </p>
             
             </div>
@@ -77,10 +78,17 @@
 -->
                 <p class="copyright">
                     Found a bug? Report it to <a href="mailto:shreyansh.kumar@hotmail.com">shreyansh.kumar@hotmail.com</a>
-                    <br />Copyright &copy;<a href="http://shreykumar.com">Shreyansh Kumar</a> 2015
+                    <br />Copyright &copy;<a href="http://shreykumar.com">Shreyansh Kumar</a> 2015<br />
+                    Built for you with love <3 
             </p>
         </div>
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
         <script type="text/javascript">
+            $(document).ready(function(){
+                $("body").css("overflow", "hidden");
+                $("#title").hide(0).delay(500).fadeIn(1000);
+                $("#details").hide(0).delay(500).fadeIn(7000);
+            });
             function fix(){
                 document.getElementById("signin").className = "fixed";
             }

@@ -66,7 +66,6 @@ div#signup {
 /* Sign in fix */
 div.unfixed {
     margin-top: -30.65%;
-    margin-left: 50%;
 }
 div.fixed {
     margin-top: -33.1%;
@@ -74,7 +73,8 @@ div.fixed {
 div#signin {
     margin-right: 5%;
     position: absolute;
-    width: 45%;
+    width: 45%;    
+    margin-left: 50%;
 }
 button.signout {
     background-color: cornflowerblue;
@@ -90,11 +90,12 @@ input.remember {
     display: inline;
     margin-top: -7px;
     margin-right: 5px;
+    outline: none;
 }
 p.copyright {
     color: white;
     text-align: center;
-    margin-top: 33px;
+    margin-top: 14px;
     font-size: 19px;
     margin-left: 3px;
 }
