@@ -113,6 +113,18 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
             });   
         }
     }
+    
+    $scope.check = function(){
+        if(localStorage.hasOwnProperty('expirydate')){
+            //check if today's date exceeds expiry date
+            var expdate = localStorage.getItem('expirydate');
+            var date = new Date();
+            if(parseInt(expdate.substring(0, 2))-1 < date.getDate() || parseInt(expdate.substring(3, 5)) < date.getMonth() || parseInt(expdate.substring(5, 9)) < date.getFullYear){
+                $scope.user = localStorage.getItem("user");
+                window.location.href = "main.html";
+            };
+        }
+    }
 
     $scope.go_signin = function(){
         if($scope.signin === undefined || $scope.signin.username === undefined || $scope.signin.password === undefined){
@@ -127,10 +139,25 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
                     $scope.signin = undefined;
                     console.log($scope.signin);
                 } else {
-                //remember me value
+                    //remember me value
                     if(document.getElementById('remember').checked){
                         var date = new Date();
-                        var month = date.getMonth() + 1;
+                        var month = date.getMonth();
+                        var day = date.getDate();
+                        var year = date.getFullYear();
+                        if(month % 2 == 0){
+                            var limit = 31;
+                        } else {
+                            var limit = 30;   
+                        }
+                        var newDay = day + 14;
+                        if(newDay > limit){
+                            newDay -= limit;
+                            if(month + 1 > 12){
+                                year += 1;
+                                month = 0;
+                            }
+                        }
                         var expdate = date.getDate() + '/' + month + '/' + date.getFullYear();
                         localStorage.setItem("password", $scope.signin.password);
                         localStorage.setItem("expirydate", expdate);    
@@ -145,6 +172,7 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
     
     $scope.signout = function(){
         localStorage.setItem("user", "");
+        localStorage.setItem("expirydate", "");
         window.location.href = "index.html";
     }
     
