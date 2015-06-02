@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var mongojs = require('mongojs');
-var db = mongojs('identity', ['identity']);
+var db = mongojs('mongodb://ShreyKumar:8809asAS@ds034208.mongolab.com:34208/identity', ['identity']);
 var bodyParser = require('body-parser');
 //var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;
 
@@ -41,6 +41,20 @@ app.get('/auth/facebook/callback',
 */
 /***************END FACEBOOK OAUTH ******************/
 /* COMING SOON IN NEXT VERSION*/
+/*
+var MongoClient = require('mongodb').MongoClient
+  , assert = require('assert');
+
+// Connection URL
+var url = 'mongodb://ShreyKumar:8809asAS@ds034208.mongolab.com:34208/identity';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected correctly to server");
+
+  db.close();
+});
+*/
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
