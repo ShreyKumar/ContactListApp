@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
-var mongojs = require('mongojs');
-var db = mongojs('identity', ['identity']);
+var db = require('mongojs').connect('mongodb://ShreyKumar:8809asAS@ds034208.mongolab.com:34208/identity', ['identity']);
 var bodyParser = require('body-parser');
 //var passport = require('passport'), FacebookStrategy = require('passport-facebook').Strategy;
 
