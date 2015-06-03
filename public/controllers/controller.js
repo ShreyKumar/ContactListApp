@@ -158,7 +158,7 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
             $scope.signin = undefined;
             console.log($scope.signin);
         } else {
-            $http.get('/identity/' + $scope.signin.username).success(function(response){
+            $http.get('/identity/' + $scope.signin.username + '/' + $scope.signin.password).success(function(response){
                 console.log(response === null);
                 if(response === null){
                     $scope.signin_msg = "Username or Password not found.";

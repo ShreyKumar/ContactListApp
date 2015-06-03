@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
+//var db = mongoose.connect('mongodb://ShreyKumar:8809asAS@ds034208.mongolab.com:34208/identity', ['identity']);
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://ShreyKumar:8809asAS@ds034208.mongolab.com:34208/identity', ['identity']);
 var bodyParser = require('body-parser');
@@ -82,6 +84,13 @@ app.post('/identity/:username/:password', function(req, res){
     });
 });
 
+app.get("/identity/:username", function(req, res){
+    db.identity.findOne({username: req.params.username}, function(err, doc){
+        console.log(doc);
+        res.json(doc);  
+    }); 
+});
+
 app.post("/identity/:user/:name/:email/:number", function(req, res){
     var user = req.params.user;
     var name = req.params.name;
@@ -107,14 +116,6 @@ app.post("/identity/:user/:name/:email/:number", function(req, res){
     
 });
 
-app.delete("/identity/:id", function(req, res){
-    var id = req.params.id; 
-    console.log(id);
-    db.identity.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
-        res.json(doc);
-    });
-});
-
 app.get('/identity/:username/:password', function(req, res){
     var user = req.params.username;
     var pass = req.params.password;
@@ -125,15 +126,6 @@ app.get('/identity/:username/:password', function(req, res){
     });
     
 });
-
-app.get('/identity/:id', function(req, res){
-    var id = req.params.id;
-    console.log(id);
-    db.identity.findOne({_id: mongojs.ObjectId(id)}, function(err, doc){
-        res.json(doc);
-    });
-});
-
 app.put('/identity/:username/:name/:email/:number', function(req, res){
     var contactlist = req.body[0];
     var new_contact = req.body[1];

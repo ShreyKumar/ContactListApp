@@ -6,8 +6,7 @@
   "dependencies": {
     "express": "^4.12.4",
     "body-parser": "1.12.4",
-    "mongojs": "0.18.2",
-    "angular-md5": "0.1.7"
+    "mongojs": "0.18.2"
   },
   "devDependencies": {},
   "scripts": {
