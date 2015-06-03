@@ -119,7 +119,7 @@ myApp.controller('AppCtrl', ['$scope', '$rootScope', '$http', function($scope, $
             //check if today's date exceeds expiry date
             var expdate = localStorage.getItem('expirydate');
             var date = new Date();
-            if(parseInt(expdate.substring(0, 2))-1 < date.getDate() || parseInt(expdate.substring(3, 5)) < date.getMonth() || parseInt(expdate.substring(5, 9)) < date.getFullYear){
+            if(parseInt(expdate.substring(0, 2)) > date.getDate() || parseInt(expdate.substring(3, 5)) > date.getMonth() || parseInt(expdate.substring(5, 9)) > date.getFullYear){
                 $scope.user = localStorage.getItem("user");
                 window.location.href = "main.html";
             };
