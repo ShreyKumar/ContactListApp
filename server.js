@@ -115,10 +115,11 @@ app.delete("/identity/:id", function(req, res){
     });
 });
 
-app.get('/identity/:username', function(req, res){
+app.get('/identity/:username/:password', function(req, res){
     var user = req.params.username;
+    var pass = req.params.password;
     console.log('Username' + req.params.username);
-    db.identity.findOne({username: user}, function(err, doc){
+    db.identity.findOne({username: user, password: pass}, function(err, doc){
         console.log(doc);
         res.json(doc);  
     });
