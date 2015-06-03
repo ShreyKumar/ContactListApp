@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 //var db = mongoose.connect('mongodb://ShreyKumar:8809asAS@ds034208.mongolab.com:34208/identity', ['identity']);
 var mongojs = require('mongojs');
 var db = mongojs('mongodb://ShreyKumar:8809asAS@ds034208.mongolab.com:34208/identity', ['identity']);
