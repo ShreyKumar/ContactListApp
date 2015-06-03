@@ -1,10 +1,12 @@
 {
   "name": "Identity",
   "version": "1.0.0",
-  "description": "An app that allows you to sync your contacts anywhere you go",
+  "description": "App that lets you sync connections",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.12.4"
+    "express": "^4.12.4",
+    "body-parser": "1.12.4",
+    "mongojs": "0.18.2"
   },
   "devDependencies": {},
   "scripts": {
@@ -17,12 +19,13 @@
   },
   "keywords": [
     "contact",
-    "list"
+    "list",
+    "identity"
   ],
   "author": "Shreyansh Kumar",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ShreyKumar/Identity/issues"
   },
-  "homepage": "https://github.com/ShreyKumar/ContactListApp"
+  "homepage": "https://github.com/ShreyKumar/Identity"
 }
