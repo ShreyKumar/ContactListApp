@@ -1,49 +1,99 @@
-<!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
+ <!DOCTYPE html>
+ <html ng-app="myApp" ng-controller="AppCtrl" ng-init="check()">
     <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        
+        <!-- Embed fonts -->
+        <link href='//fonts.googleapis.com/css?family=Open+Sans+Condensed:300&subset=greek' rel='stylesheet' type='text/css'>
+        
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        
+        <!-- Get CSS -->
+        <link rel="stylesheet" href="css/custom.css" type="text/css" />
+        <title>Identity</title>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <div ng-hide="showme">
+        <h1 id="title">I D E N T I T Y</h1>
+        <div id="details" class="container">
+            <h3>What is Identity?</h3>
+            <p>A fast and easy solution to store and keep track of your connections. Have you ever been on the phone attempting to write down someone's contact details but theres no pen lying around? Identity provides you with a digital notebook to write all of it down. Sign up and we will keep you logged in for 2 weeks. Its super simple and can be used at any time.</p>
+            <button class="go-btn" href="main.html" ng-click="showme=true">Got it! Lets go</button>
+                <p class="copyright">
+                    Found a bug? Report it to <a href="mailto:shreyansh.kumar@hotmail.com">shreyansh.kumar@hotmail.com</a>
+                    <br />Copyright &copy;<a href="//shreykumar.com">Shreyansh Kumar</a> 2015<br />
+                    Built for you with love <3 
+            </p>
+            
             </div>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <div ng-show="showme" id="signup">
+            <h1>S I G N    U P</h1>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td width="50%" style="margin-top: -2%;"><h3>Username</h3></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup.username" /></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Password</h3></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup.password" type="password" /></td>
+                    </tr>
+                    <tr>
+                        <td><h3>Confirm Password</h3></td>
+                        <td style="padding-top: 3%"><input class="form-control text-box" ng-model="signup_confirmpwd" type="password" /></td>
+                    </tr>
+                    <tr>
+                        <td>5   +   2   =   </td>
+                        <td style="padding-top: 3%">
+                            <input class="form-control text-box" ng-model="ans" ng-click="msg=true" onClick="fix()" />
+                            <div ng-show="msg">Just so we know that you aren't a robot</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="go-btn" ng-click="go_signup()">Sign up</button>{{ signup_msg }}
+            <div id="signin" class="unfixed">
+                <h1>S I G N  IN</h1>
+                <table class="table">
+                    <tr>
+                        <td width="50%">Username</td>
+                        <td><input class="form-control text-box" ng-model="signin.username" /></td>
+                    </tr>
+                    <tr>
+                        <td width="50%">Password</td>
+                        <td><input class="form-control text-box" ng-model="signin.password" type="password"/></td>
+                    </tr>
+                </table>
+                <input type="checkbox" class="form-control remember" ng-model="remember" id="remember"/>Keep me signed in for 2 weeks
+                <button class="go-btn" ng-click="go_signin()">Sign in</button>
+                {{ signin_msg }} 
+                <!--
+                <a href="/auth/facebook"><button class="go-btn">Sign in with Facebook</button></a>
+                <button class="go-btn">Sign in with Twitter</button>
+                <button class="go-btn">Sign in with Google+</button>
+            </div>
+-->
+                <p class="copyright">
+                    Found a bug? Report it to <a href="mailto:shreyansh.kumar@hotmail.com">shreyansh.kumar@hotmail.com</a>
+                    <br />Copyright &copy;<a href="//github.com/ShreyKumar">Shreyansh Kumar</a> 2015<br />
+                    Built for you with love <3 
+            </p>
+        </div>
+        <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("body").css("overflow", "hidden");
+                $("#title").hide(0).delay(500).fadeIn(1000);
+                $("#details").hide(0).delay(500).fadeIn(7000);
+            });
+            function fix(){
+                document.getElementById("signin").className = "fixed";
+            }
+        </script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.0-rc.1/angular.min.js"></script>
+    <script src="controllers/controller.js"></script>
     </body>
-</html>
+ </html>
